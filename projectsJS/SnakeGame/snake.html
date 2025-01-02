@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snake</title>
+    <style>
+        body{
+            height: 80vh;
+        }
+          .main{
+            position: relative;
+            width: 480px;
+            height: 480px;
+            background-color: brown;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            border: 10px solid black;
+          }
+          .apple{
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: inline-block;
+          }
+          .snake{
+            position:relative;
+            width: 100%;
+            height: 100%;
+          }
+          .snake>span{
+            position: absolute;
+            width: 20px;
+            top: 100px;
+            left: 100px;
+            height:20px;
+            /* margin: -2px; */
+            padding: 0px;
+            display: inline-block;
+            border-radius: 50%;
+            background-color:black;
+            
+          }
+          
+            .snake>.header{
+                background-color: white;
+               
+            }
+            .move{
+                margin-top: 20px;
+            margin-left:50%;
+            transform: translate(-50%);
+                text-align: center;
+                width: 160px;
+                padding: 10px;
+                 background-color:gray;
+                 border-radius: 20px;
+            }
+        
+            .move>div{
+                margin: 10px;
+      
+            }
+           
+            .move>div>span{
+                margin:10px;
+                padding: 10px;
+                background-color:brown;
+                border-radius: 10px;
+                color: white;
+            }
+            .move>div>span:hover{
+                background-color: white;
+                color: brown;
+                cursor: pointer;
+            }
+            .black{
+                background-color: black !important;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <h3>Your Score is :<span class="score"> </span> </h3>
+    </div>
+ <div class="main">
+        <span class="apple"></span>
+        <div class="snake">
+            <span class="header"></span>
+           
+        </div>
+        <div class="move">
+            <div><span class="top">T</span></div>
+             <div>
+                 <span class="left">L</span>
+                 <span class="right">R</span>
+             </div>
+             <div><span class="bottom">B</span></div>
+      </div>
+ </div>
+    
+</body>
+<script>
+    //up 38
+    //down 40
+    //right 39
+    //left 37
+   
+
+function start(){
+    let score=document.querySelector('.score');
+
+   let main=document.querySelector('.main');
+   let header=document.querySelector('.header');
+   let apple=document.querySelector('.apple');
+    let t=document.querySelector('.top');
+    let left=document.querySelector('.left');
+    let bottom=document.querySelector('.bottom');
+    let right=document.querySelector('.right');
+
+    let cont=[];
+        cont.push(left);
+        cont.push(t);
+        cont.push(bottom);
+        cont.push(right);
+       
+    for(let i=0; i<cont.length; i++){
+        cont[i].addEventListener('click',(e)=>{
+            let snake=document.querySelector('.snake').children;
+            let state=cont[i].getAttribute('class');
+            let pos=[];
+            for(let i=0 ; i<snake.length; i++){
+            let a=snake[i].offsetLeft;//position x
+            let b=snake[i].offsetTop;//position y
+            let item=[];
+            item.push(a);
+            item.push(b);
+            pos.push(item);
+            item=[];
+                    }   
+            process(move(state,pos),snake,pos);
+                if(positave(pos[0][0]-apple.offsetLeft)<=12 && positave(pos[0][1]-apple.offsetTop)<=12){
+                    Apple(pos,snake);
+                }
+        });
+}
+window.addEventListener('keydown',function(e){
+    let snake=document.querySelector('.snake').children;
+      let state;  
+      if(e.keyCode==38){
+     state='top';
+        }
+        else if(e.keyCode==40){
+      state='bottom';
+        }
+        else if(e.keyCode==39){
+      state='right';
+        }
+        else if(e.keyCode==37){
+       state='left';
+        }
+            let pos=[];
+            for(let i=0 ; i<snake.length; i++){
+            let a=snake[i].offsetLeft;//position x
+            let b=snake[i].offsetTop;//position y
+            let item=[];
+            item.push(a);
+            item.push(b);
+            pos.push(item);
+            item=[];
+                    }   
+            process(move(state,pos,snake),snake,pos);
+                if(positave(pos[0][0]-apple.offsetLeft)<=12 && positave(pos[0][1]-apple.offsetTop)<=12){
+                    Apple(pos,snake);
+                }
+});
+
+function positave(n){
+    if(n<0){
+        return -(n);
+    }
+    else{
+        return n;
+    }
+}
+function Apple(pos,snake){
+let num1=positave(Math.ceil(Math.random()*400));
+let num2=positave(Math.ceil(Math.random()*400));
+apple.style.cssText=`top:${num1}px;left:${num2}px`;
+Add(pos,snake);
+}
+function Add(pos,snake){
+   let span=document.createElement('span');
+        span.style.cssText=`top:${pos[snake.length-1][1]}px;left:${pos[snake.length-1][0]}px`
+       document.querySelector('.snake').append(span);
+    console.log(snake.length);
+    let strong=document.createElement('strong');
+         strong.style.color='brown';
+         
+         strong.append(snake.length);
+         score.innerHTML='';
+         score.append(strong);
+         
+         
+         score.append(strong);
+    }
+function move(state,pos,snake){
+   let x=parseInt(pos[0][0]);
+   let y=parseInt(pos[0][1]);
+   if(state=='top'){
+       //check 
+       if(y<=main.clientTop){
+
+     // faild function
+        return pos;
+       }else{
+       y=y-20;}
+   }
+   if(state=='bottom'){
+    //check
+    if(y>=main.clientHeight-30){
+        //faild function
+        return pos;
+    }else{
+        y=y+20;
+    }
+    
+   }
+   if(state=='left'){
+       //check 
+    //    console.log(main.offsetLeft+10);
+    //    console.log(x);
+       if(x<=main.clientLeft){
+       //fiald function
+        return pos;
+       }
+       else{
+       x=x-20;
+       }
+   }
+   if(state=='right'){
+    //check
+    if(x>=main.clientWidth-30){
+       //faild function
+        return pos;
+
+    }
+    else{x=x+20;}
+   }
+  let arr=[];
+  arr.push(x);
+  arr.push(y);
+   pos.unshift(arr);
+   arr=[];
+   pos.pop();
+   return pos;
+}
+function process(pos,snake,pos){   
+   for(let i=0 ; i<snake.length; i++){
+    snake[i].style.cssText=`left:${pos[i][0]}px;top:${pos[i][1]}px;`;
+   }  
+}
+function head(){
+    
+    header.classList.toggle('black');
+
+}
+
+}
+start();
+</script>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/all.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <title>Slider</title>
+    <style>
+        body{
+            background-color: #2f3533;
+        }
+        .slider{
+           margin-top: 100px;
+        }
+    .container1{
+      width: 90%;
+      margin: auto;
+    }
+    .items{
+       display: grid;
+
+    }
+    .item{
+        background-color: whitesmoke;
+        
+      
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .item>.image{
+      height: 200px;
+      min-width: 100px;
+        display: flex;
+        justify-content: center;
+       margin-bottom:10px;
+      
+       
+    }
+    .item>.image>img{
+       
+        border-radius: 10px;
+        width:100%;
+    
+    }
+    .item>.header{
+        display: inline-block;
+        padding: 5px;
+        background-color: #c4daf3;
+        color: #0864c7;
+        border-radius: 20px;
+    }
+    .item>.btn{
+        border: none;
+        border-radius: 50%;
+        padding: 10px;
+        background-color: #c4daf3;
+        color: #0864c7;
+        transition: 0.2s all ease-in-out;
+    }
+    .item:hover>.btn{
+        background-color: #0864c7;
+        color: white;
+    }
+    .controller{
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        
+    }
+    .circle{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .circle>span{
+        width: 10px;
+        height: 10px;
+        margin: 5px;
+        border-radius: 50%;
+        background-color:#c4daf3;
+       visibility: hidden;
+    }
+    .circle>.active{
+        transform: scale(1.7);
+        background-color:#0864c7;
+        visibility: visible;
+    }
+    .circle>.seconder{
+        transform: scale(1.5);
+        background-color: #c4daf3;
+        visibility: visible;
+    }
+    .circle>.third{
+        transform: scale(1.3);
+        background-color: #c4daf3;
+       visibility: visible;
+    }
+    #left,#right{
+    padding: 10px;
+    background-color: #0864c7;
+    color: #c4daf3;
+    border-radius: 50%;
+    transition: 0.2s all ease-in-out;
+    }
+    #left:hover,#right:hover{
+        background-color: #c4daf3;
+        color: #0864c7;
+    }
+    #items{
+        flex-wrap: nowrap;
+        overflow:hidden !important;
+    }
+    </style>
+</head>
+<body>
+    <section class="slider">
+        <div class="container1">
+            <div id="items" class="row">    
+            </div>
+            <div class="controller">
+            <div id="left">L</div>
+            <div class="circle">
+            </div>
+            <div id="right">R</div>   
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+//bring the data 
+let index=0;
+let circle=document.getElementsByClassName('circle')[0].children;
+let items=document.getElementById("items");
+let arr=Object.keys(circle);
+arr=arr.map((e)=>{return parseInt(e)});
+let xml=new XMLHttpRequest;
+xml.open("GET",'data.json');
+xml.onreadystatechange=function(){
+    if(this.status===200 && this.readyState===4){
+        let data=JSON.parse(this.responseText);
+        BuildItems(data);
+        BuildCircle();
+        let arr=Object.keys(circle);
+            arr=arr.map((e)=>{return parseInt(e)});
+        AddClass(index,arr);
+        let right=document.getElementById('right');
+        let left=document.getElementById('left');
+       right.addEventListener('click',()=>{
+             inc(arr);    
+             items.innerHTML="";
+                AddClass(index,arr);
+                BuildItems(UpdateData(index,data));
+            });
+       left.addEventListener('click',()=>{
+               desinc(arr);    
+               
+               items.innerHTML="";
+                AddClass(index,arr);
+                BuildItems(UpdateData(index,data));
+                
+            });
+        for(let i=0 ;  i<circle.length ; i++){
+           circle[i].addEventListener('click',function(){
+               index=circle[i].getAttribute('data-index');    
+               items.innerHTML="";
+                AddClass(parseInt(index),arr);
+                BuildItems(UpdateData(parseInt(index),data));
+                
+        });
+        }
+        // setInterval(function(){
+        //     if(index==12){
+        //         index=0;
+        //     }
+        //       items.innerHTML="";
+        //         AddClass(index,arr);
+        //         BuildItems(UpdateData(index,data));
+        //         index++;
+            
+            
+        // },2000);
+    }}
+xml.send();
+
+//build the items
+function BuildItems(data){
+for(let i=0; i<data.length;i++){
+           let div1=document.createElement('div');
+                div1.setAttribute('class','col-12 col-sm-6 col-md-4 col-lg-3')
+           let div2=document.createElement('div');
+                div2.setAttribute('class','item');
+                div2.setAttribute('data-n',data[i].id);
+           let div3=document.createElement('div');
+                div3.setAttribute('class','image');
+           let img=document.createElement('img');
+               img.setAttribute('src',data[i].image);
+               div3.append(img);
+               div2.append(div3);
+           let div4=document.createElement('div');
+                div4.setAttribute('class','header');
+                div4.append(data[i].title);
+                div2.append(div4);
+           let p=document.createElement('p');
+               p.setAttribute('class','details');
+               p.append(data[i].body); 
+               div2.append(p);
+           let button=document.createElement('button');
+               button.setAttribute('class',"btn");
+               button.append('To');
+               div2.append(button);
+               div1.append(div2); 
+               items.append(div1);
+            } }
+function BuildCircle(){
+    let item=document.getElementsByClassName('item');
+for(let i=0; i<item.length ; i++){
+         let span=document.createElement('span');
+             span.setAttribute("data-index",i);
+             document.querySelectorAll('.circle')[0].append(span);
+        }}
+function inc(arr){
+        if(arr.indexOf(arr[index+1])>-1){
+            index=index+1;
+        }
+    }
+function desinc(arr){
+        if(arr.indexOf(arr[index-1])>-1){
+             index--;
+        }
+    }
+function removeClass(arr){
+        for(let i=0; i<arr.length;i++){
+            circle[i].removeAttribute('class');
+        }
+    }
+function AddClass(i,arr){
+        removeClass(arr);
+        if(arr.indexOf(arr[i+1])){
+        circle[i].setAttribute('class','active');
+        if(arr.indexOf(arr[i+1])>-1){
+             circle[i+1].setAttribute('class','seconder');
+            //add class seconder 
+        }
+        if( arr.indexOf(arr[i-1])>-1){
+            circle[i-1].setAttribute('class','seconder');
+
+            //add class seconder
+        }
+        if(arr.indexOf(arr[i+2])>-1){
+            circle[i+2].setAttribute('class','third');
+            //add class third
+        }
+        if(arr.indexOf(arr[i-2])>-1){
+            //add class third
+            circle[i-2].setAttribute('class','third');
+        }
+    }}
+function UpdateData(index,data){
+let NewData=[];
+for(let i=0 ; i<data.length ; i++){
+    if(data.indexOf(data[index+i])>-1){
+        NewData[i]=data[index+i];
+        }
+    else{ 
+      for(let c=0; c<index; c++){
+        NewData[i+c]=data[c];
+       }
+       break;
+    } 
+} 
+return NewData; 
+}
+
+</script>
+
+</html>

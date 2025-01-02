@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            scroll-behavior: smooth;
+         
+        }
+       
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            background-color: #192239;
+        }
+        .container{
+            width: 90%;
+            margin: auto;
+          
+        }
+        .head{
+            height: 100vh;
+            background-color: red;
+        }
+        .services{
+            background-color:#192239;
+            padding-top: 20px;
+            color: white;
+            width: 100%;
+            
+        }
+        .orange{
+            color: orange;
+        }
+        .header{
+            font-size: 3rem;
+            letter-spacing: 0.05rem;
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }  
+        .main{
+            margin-top: 30px;
+            width: 100%;
+            height: 100%;
+            display:grid;
+            grid-template-columns: 50% 50% ;
+        } 
+        .left{
+            position:sticky;
+            top: 10vh;
+            width: 100%;
+            height: 80vh;
+            display: inline-block;
+            background-color:inherit;
+            padding-top: 5vh;
+            color: white;
+            
+            
+            
+        }
+
+     .left>div{
+        position: relative;
+      box-sizing: border-box;
+      width:0px;
+      height: 10vh;
+      margin-left: 50%;
+      border: 1px solid white;
+            transform: translateX(-50%);
+     }
+   .left>div::after{
+    content:"";
+    bottom: 0px;
+     position: absolute;
+    width:20px;
+    height:20px;
+    transform: translateX(-50%);
+    background-color:#192239 ;
+    border:2px solid white;
+    z-index: 100;
+    border-radius: 50%;
+    transition: 0.1s all ease-in-out;
+   }
+   .left>.click::after{
+    background-color: white;
+   }
+   .left>.click>span{
+    color: orange;
+   }
+   .left>.click::before{
+    content:"";
+   bottom: -4.3px;
+     position: absolute;
+    width:30px;
+    height:30px;
+    left: -17px;
+    background-color: #192239;
+    border:2px dashed orange;
+    z-index: 100;
+    border-radius: 50%;
+    transition: 0.2s all ease-in-out;
+    transform: rotateX(0deg);
+   animation:move 10s linear 0s infinite;
+
+   }
+   .left>div:hover::after{
+    background-color:white;
+   }
+   .left>.end::after{
+    content: '';
+    left: 3px;
+    bottom: 0px;
+    position: absolute;
+    height: 10px;
+    width: 0px;
+    border: 0.5px solid white;
+    transform: rotate(35deg);
+
+   }
+   .left>.end::before{
+    content: '';
+     right: 3px;
+    bottom: 0px;
+    position: absolute;
+    height: 10px;
+    width: 0px;
+    border: 0.5px solid white;
+    transform: rotate(-35deg);
+
+   }
+   .one,.three,.five{
+            position: absolute;
+            bottom: 5px;
+            left: 15px;
+            width: 150px;
+            text-align: center;
+        }
+        .two,.four,.six{
+            position: absolute;
+            bottom: 5px;
+            right: 15px;
+            width: 150px;
+            text-align: center;
+        }
+.left>div>span{
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.left>div>span:hover{
+    color: orange;
+}
+
+
+@keyframes move {
+to{
+    transform: rotate(360deg);
+}    
+}
+
+
+
+
+
+        .right{
+            position: relative;
+            background-color:#192239;
+            display: inline-block;
+            padding-top: 10px;
+            color: #CFEEFF;
+            scroll-behavior: smooth;
+        }
+ /* .right::-webkit-scrollbar {
+    display: none;
+} */
+        .right>div{
+            position: relative;
+            min-height:70vh;
+           min-width: 350px;
+            margin-left: 50%;
+            margin-top:15vh;
+            margin-bottom: 15vh;
+            transform: translateX(-50%);
+            background-color:#4e2154;
+
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .right>div>h1{
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .right>div>div{
+            position: relative;
+            
+            padding: 10px;
+            height: 260px;
+            margin-bottom: 15px;
+            margin-top: 15px;
+
+        }
+        .right>div>div>img{
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .right>div>p{
+          width: 100%;
+        padding: 10px;
+        word-spacing: 1px;
+        letter-spacing: 1px;
+        line-height: 1.7rem;
+        }
+        .right>div>a{
+            position: relative;
+            color: #CFEEFF;
+            top:25px;
+            letter-spacing: 0.1rem;
+            font-size: 1.2rem;
+        }
+        .right>div>a:hover{
+            text-decoration: none;
+        }
+        .footer{
+            height: 100vh;
+            background-color: red;
+        }
+        .bottom{
+        background-color:#192239;
+        width: 100%;
+        min-height: 80px;
+        position: relative;
+        justify-content: center;
+        align-items: end;
+        align-content: center;
+        margin-bottom: 50px;
+        bottom: 10px;
+        display: none;
+        }
+        .bottom>span{
+            position:relative;
+             margin-left: 15px;
+          min-width:9px;
+          min-height: 18px;
+            border: 1px solid orange;
+            border-radius: 5px;
+            transition: 0.2s all ease-in-out;
+            bottom: 0px;
+        }
+        .bottomN,.bottom>span:hover{
+            min-height:27px !important;
+            background-color: orange;
+        }
+        @media screen and (max-width: 900px){
+           .main{
+            display: block;
+           } 
+           .left{
+            display: none;
+           }
+          .right{
+            
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            align-content: center;
+            /* flex-wrap: nowrap; */
+            overflow-x:auto;
+       
+          
+          }
+         .right::-webkit-scrollbar{
+            width: 0;
+           
+         }
+         .right::-webkit-scrollbar-track{
+            background-color: #4e2154;
+         }
+         .right::-webkit-scrollbar-thumb{
+            background-color: orange;
+         }
+          .right>div{
+            min-height: 75vh;
+            padding: 10px;
+            min-width:360px;
+            margin-left: 20%;
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            transform: translateX(-10%);
+          }
+          .right>div>div{
+            height: 150px;
+          }
+          .bottom{
+            display: flex;
+          }
+
+        }
+        @media screen and (max-width: 480px){
+            .right::-webkit-scrollbar{
+           display: none;
+           
+         } 
+         .right>div{
+          min-width: 80%;
+         }
+        }
+    </style>
+</head>
+<body>
+
+   <div class="services">
+       <div class="container">
+        <span class="orange">ioT Services</span>
+        <h1 class="header">ALLE IOT SERVICES IM ÜBERBLICK</h1>
+        <div class="main">
+            <div class="left">
+                <div><span class="one">IoT Experience Design</span></div>
+                <div><span class="two">IoT Strategie</span></div>
+                <div><span class="three">IoT Cloud Plattform</span></div>
+                <div><span class="four">IoT Connected Devices</span></div>
+                <div><span class="five">IoT Sicherheit</span></div>
+                <div><span class="six">IoT Go Live</span></div>
+                <div class="end"></div>
+            </div>
+            <div class="right">
+                <div>
+                    <h1>IoT Experience Design</h1>
+                    <div><img src="images/1.jpeg" ></div>
+                    <p>Service Design Approach, Design-DNA und -System, Interface Design, Interaction Design und UX für alle User.</p>
+                    <a href="">Mehr zu IoT Experience Design</a>
+                </div>
+                
+                <div>
+                    <h1>IoT Strategie</h1>
+                    <div><img src="images/2.jpeg" ></div>
+                    <p>IoT Readiness/Maturity-Assessments, Markt- und Trendanalyse, IoT Product und Product Vision Creation, IoT Product Strategy, IoT Technology Consulting und IoT Data Strategy Consulting.</p>
+                    <a href="">Mehr zu IoT Strategie</a>
+                </div>
+
+                <div>
+                    <h1>IoT Cloud Plattform</h1>
+                    <div><img src="images/3.jpeg" ></div>
+                    <p>Skalierbare und erweiterbare IoT-Infrastruktur. Perfekt geeignet, um die gesetzliche Compliance sicherzustellen.</p>
+                    <a href="">Mehr zu IoT Cloud Plattform und Infrastruktur</a>
+                </div>
+                
+                <div>
+                    <h1>IoT Connected Devices</h1>
+                    <div><img src="images/4.jpeg" ></div>
+                     <p>IoT Gateway Plattformen, Embedded Computing Plattformen und IoT Edge Gateways.</p>
+                    <a href="">Mehr zu IoT Connected Devices</a>
+                </div>
+                
+                <div>
+                    <h1>IoT Sicherheit</h1>
+                    <div><img src="images/5.jpeg" ></div>
+                    <p>Security Consulting für das Produktmanagement und die Entwicklung. Volle Compliance mit zukünftig anstehenden rechtlichen Rahmenbedingungen.</p>
+                    <a href="">Mehr zu IoT Security</a>
+                </div>
+
+                <div>
+                    <h1>IoT Go Live</h1>
+                    <div><img src="images/6.jpeg" ></div>
+                    <p>Support beim Rollout Ihres Produkts, Go-to-Market-Support, Produktvalidation und Electronic Manufacturing Services.</p>
+                    <a href="">Mehr zu IoT Go Live and Life Cycle Management</a>
+                </div>
+
+            </div>
+            <div class="bottom">
+                <span class="bottomN"></span>
+                <span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+       </div>
+   </div> 
+</body>
+<script>
+    
+
+    let bottom=document.querySelector('.bottom').children;
+    let start=document.querySelector('.services').offsetTop;
+    let left=document.querySelector('.left').children;
+    let right=document.querySelector('.right').children;
+   for(let i=0; i<left.length; i++){
+    left[i].addEventListener('click',function(){
+        for(let j=0 ; j<left.length; j++){
+            left[j].classList.remove('click');
+        }
+       left[i].classList.add('click');
+       let y=right[i].offsetTop;
+
+       
+    window.scrollTo(0,y+start);
+    });
+    }
+    window.addEventListener('scroll',()=>{
+        for(let i=0; i<right.length; i++){
+            let y=right[i].offsetTop+start;
+        let now=document.documentElement.scrollTop;
+        if(now>=y){
+            for(let j=0; j<left.length; j++){
+                left[j].classList.remove('click');
+            }
+                left[i].classList.add('click');
+    }
+    }
+}); 
+for(let i=0; i<bottom.length ; i++){
+    bottom[i].addEventListener('click',function(){
+        document.querySelector('.right').scrollTo(right[i].offsetLeft-84,0);
+    for(let i=0; i<bottom.length;  i++){
+        if(bottom[i].classList.contains('bottomN')==true){
+            bottom[i].classList.remove('bottomN'); 
+        }
+    }
+        bottom[i].classList.add('bottomN');
+    });
+}
+let rightP=document.querySelector('.right');
+rightP.addEventListener('scroll',function(){
+    for(let i=0; i<right.length; i++){
+       
+    if( right[i].offsetLeft-rightP.scrollLeft<120){
+        for(let j=0; j<bottom.length; j++){
+            if(bottom[j].classList.contains('bottomN')==true){
+                bottom[j].classList.remove('bottomN'); 
+            }
+    } 
+    bottom[i].classList.add('bottomN'); 
+
+    }
+    }
+});
+rightP.onkeyuph=function(){
+    console.log('now mous enter');
+}
+//0 440 880 1360 1740 2200
+</script>
+</html>

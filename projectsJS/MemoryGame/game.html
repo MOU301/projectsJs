@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<style>
+    /* body{
+        background:url(images/0.jpeg)no-repeat center center/cover; 
+    } */
+    .items{
+       
+        background-color: aqua;
+        width: 480px;
+        height: 480px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        padding: 10px;
+        text-align: center;
+        
+    }
+    .item{
+        margin:5px;
+        width: 80px;
+        height:80px;
+        box-sizing: border-box;
+        background-color: white;
+        transition: 0.3s all ease-in-out;
+    
+        
+    }
+    .header{
+        padding: 10px;
+    }
+    .left{
+        display: none;
+    }
+    .one{
+        margin: 10px;
+    }  
+    .one>input{
+        border-radius: 10px;
+        border: 1px solid green;
+        outline: 1px solid green;
+
+    }
+   .one>input:focus{
+    border: 1px solid red;
+    outline: 1px solid red;
+   }
+    #user{
+        color:green;
+        font-size: bold;
+       
+    }
+    #wrong{
+        color: red;
+        font-size: bold;
+    }
+    #start{
+        color:white;
+        background-color: green;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px 10px;
+    }
+    #start:hover{
+        color: green;
+        background: white;
+        border: 2px solid green;
+    }
+    /* .item:hover{
+        transform:rotateY(180deg);
+        background-image:url('images/1.jpeg');
+    } */
+    @media screen and (min-width: 1000px) {
+        .items{
+            width:960px;
+            height: 960px;
+            
+        }
+        .item{
+            width: 160px;
+            height: 160px;
+            
+        }
+    }
+    @media screen and (max-width: 480px) {
+        .items{
+            width:360px;
+            height: 360px;
+        }
+        .item{
+            width: 50px;
+            height: 50px;
+        }
+    }
+</style>
+<body>
+   <div class="container">
+    <div class="header d-flex justify-content-between">
+        <div class="one"><input id="name" type="text" name="name"><span id="start">start</span></div>
+        <div class="left">hallo  : <span id="user"></span></div>
+        <div class="right">wrong : <span id="wrong">0</span></div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="items">
+    </div>
+    </div>
+    
+   </div> 
+</body>
+<script>
+    
+    document.getElementById('start').addEventListener('click',function(){
+        let name=document.getElementById('name').value;
+             
+        if(name!=''){
+        console.log(name);
+        document.getElementById('start').parentNode.style.display='none';
+        document.getElementById('user').innerHTML=name;
+        document.getElementsByClassName('left')[0].style.display='block';
+    
+    let data=['a','b','c','d','f','g','i','e','h','m'];//ich kann liegt src image in diese array
+    function CreateIndex(data){
+        let shuffle=[11,3,5,2,18,12,16,7,0,1,6,17,9,15,19,4,13,14,10,8];
+        newdata=Object.keys(data).map((e)=>{
+            return parseInt(e);
+        });
+        let data1=[];
+    newdata=[...newdata,...newdata];
+    for(let i=0; i<shuffle.length; i++){
+      data1[shuffle[i]]=newdata[i];
+    }
+    return data1;
+    }
+    let items=document.getElementsByClassName('items')[0];
+        items.innerHTML='';
+    let arr=CreateIndex(data);//shuffle the data to update
+    for(let i=0 ; i<20 ; i++){
+        let div=document.createElement("div");
+            div.setAttribute('class','item');
+            div.setAttribute('data-index',arr[i]);
+            div.append(i);
+            items.append(div);
+    }
+    let item=document.getElementsByClassName('item');
+    
+    begint(item);
+   
+    
+    }
+});
+    
+
+
+
+
+
+    function begint(item){
+        let wrong=0;
+        setTimeout(function (){
+        for(let i=0; i<item.length; i++){
+        item[i].style.cssText=`transform:rotateY(0deg);background:white`;
+}},1000);
+for(let i=0; i<item.length; i++){
+        item[i].style.cssText=`transform:rotateY(180deg);background-image:url(images/${item[i].getAttribute('data-index')}.jpeg)`;
+}
+    let result=[];
+    for(let i=0; i<item.length ; i++){
+        item[i].addEventListener("click",function(e){
+            console.log(item[i].classList.contains('ok'));
+            if(item[i].classList.contains('ok')==false){
+               if(result.length==0 || result.length<2){
+                result.push(i);
+                item[i].style.cssText=`transform:rotateY(180deg);background:url(images/${item[i].getAttribute('data-index')}.jpeg) no-repeat center center/cover`;
+            }
+                if(result.length==2){
+                let r1=item[result[0]].getAttribute("data-index");
+                let r2=item[result[1]].getAttribute("data-index");
+                if(r1===r2){
+                      item[result[0]].classList.add('ok');
+                      item[result[1]].classList.add('ok'); 
+                result=[];
+            }
+                else{
+                setTimeout(function(){
+                    console.log('settimeout begin');
+                    for(let i=0; i<result.length; i++){
+                    item[parseInt(result[i])].style.cssText='transform:rotateY(0deg);background-color:white';
+                    }
+                    result=[];
+                    wrong++;
+                    console.log(wrong);
+                    document.getElementById('wrong').innerHTML=wrong;
+                    if(wrong>=20){
+                       wrong=0;
+                       begint(item);
+                    }
+                },1000)
+                
+            }
+            }
+        }   
+    });
+    }
+  
+}
+
+
+
+
+
+</script>
+</html>

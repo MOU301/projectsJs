@@ -1,0 +1,269 @@
+
+:root{
+    --main-color1:#E21c21;
+    --main-color2:#212529;
+  }
+  .menu{
+    background-color:var(--main-color2);
+    height: 100vh;
+    color: white;
+  }
+  /*start section hallo */
+  .hallo{
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      color: white;
+      background-image: url(../../images/IMG-20240427-WA0131.jpg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-size:cover
+  }
+  .hallo>div::before{
+      content: "";
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0,0.33);
+  
+      
+  }
+   .welcome{
+      z-index: 2;
+   }
+  .hallo>div{
+      height: inherit;
+  }
+  /* end section hallo */
+  .menu-no{
+      display: none;
+  }
+  .menu-ok{
+      display: block;
+  }
+  .close{
+   color: var(--main-color1);
+   font-size: larger;
+   cursor: pointer;
+   transition:0.3s ease all;
+  }
+  .close:hover{
+      color: white;
+  }
+  .menu a{
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      transition:0.3s ease all;
+  }
+  .link{
+      color: white;
+      text-decoration: none;
+      transition:0.2s all ease ;
+      cursor: pointer;
+  }
+  .link:hover{
+      color: var(--main-color1);
+
+  }
+  .menu a:hover{
+      color:var(--main-color1);
+  }
+  .color1{
+      color:var(--main-color1);
+  }
+  .bg-color2{
+      background-color: var(--main-color2);
+  }
+  .btn-color1{
+      background-color:var(--main-color1);
+      color: white;
+      transition:0.3s ease all;
+  }
+  .btn-color1:hover{
+      color: var(--main-color1);
+      font-size: 16px;
+  }
+  /* start about */
+ .about{
+    background-color: white;
+ }
+.about-image{
+    position: relative;
+    height:60vh;
+}
+.about-image>img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+
+}
+/* .about-text{
+ height: 60vh;  
+} */
+.text-gray{
+    color: #eee;
+}
+  /* end about */
+   /* start view section  */
+ 
+/* start the view  */
+.hh{
+    height:30vh;
+}
+.hh h4{
+    color: #eeeeee43;
+}
+.hh p {
+    color: #bebebef9;
+}
+
+
+.border1{
+    border-right:0.5px dashed #eeeeee43;
+
+}
+
+.text-gray{
+    color:#e8c4c563;
+}
+
+
+
+
+/* end the view */
+/* start servieces */
+.servieces{
+    height: auto;
+}
+.servieces ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    overflow-x: auto;
+
+  
+}
+.servieces ul::-webkit-scrollbar {
+   background-color:inherit;
+   background-color:var(--main-color1);
+   border-radius: 30px;
+}
+.servieces ul>li{
+min-width:120px;
+text-align: center;
+border-radius: 10px;
+transition: 0.2s all ease-in-out;
+}
+.servieces ul>li:hover{
+    background-color: white;
+}
+.ser-item{
+    position: relative;
+    min-width: 200px;
+    height: 200px;
+    
+}
+.ser-item>img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+/* end sercieces */
+
+/* start contact */
+
+
+.contact{
+
+    margin:30px 0px 30px 0px;
+    
+}
+.contact h1{
+    margin-bottom: 30px;
+}
+.contact textarea{
+    height: 30vh;
+}
+.choice-file{
+    transition: 0.3s all ease-in-out;
+}
+.choice-file:hover{
+ color: var(--main-color1);
+}
+.info i {
+    margin-right: 15px;
+    color: var(--main-color1);
+
+}
+.info ul ,.icons ul{
+    list-style:circle;
+  
+}
+.info span{
+    color: black;
+}
+.info li,.icons li{
+    margin-bottom: 10px;
+}
+.icons ul{
+    list-style:none ;
+}
+.icons i{
+    font-size: 30px;
+    margin-right: 10px;
+}
+.icons a{
+    color: #212529;
+    transition: 0.3s all ease-in-out;
+    text-decoration: none;
+}
+.icons a:hover{
+    color: var(--main-color1);
+}
+.border-top{
+    border-top: 1px dashed var(--main-color1) !important;
+}
+
+/* end contact */
+@media screen and (max-width: 480px) {
+   .hallo{
+    height: 60vh;
+   }
+    .border1 {
+       border-right:0px;
+       border-bottom: 2px solid #eeeeee43;
+    }
+    .icons ul{
+       display: flex ;
+       justify-content: space-evenly;
+       align-content:center;
+       align-items:center;
+
+    }
+.ser-item{
+    height: 50vh;
+}
+    .servieces ul::-webkit-scrollbar{
+        display: none;
+    }
+    }
+    /*start section work  */
+     .work .lead{
+        color: #eee !important;
+        margin-left: 10px !important;
+    }
+    .pointer{
+        cursor: pointer;
+        transition: 0.1s all ease-in-out !important;
+    }
+   .work .pointer:hover{
+     color:var(--main-color1) !important;
+   }
+    /* end section work */
